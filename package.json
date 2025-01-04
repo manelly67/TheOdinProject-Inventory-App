@@ -1,0 +1,28 @@
+{
+  "name": "inventory-app",
+  "version": "1.0.0",
+  "description": "NodeJS Course",
+  "homepage": "https://github.com/manelly67/TheOdinProject-Inventory-App#readme",
+  "bugs": {
+    "url": "https://github.com/manelly67/TheOdinProject-Inventory-App/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manelly67/TheOdinProject-Inventory-App.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch app.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "pg": "^8.13.1"
+  }
+}
