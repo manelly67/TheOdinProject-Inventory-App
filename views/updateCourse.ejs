@@ -1,0 +1,80 @@
+<html>
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <div class="content">
+        <div>
+            <div>
+                <h1><%= appObject.appName %></h1>
+                <h2>Many courses <i>Start learning this beautiful art</i></h2>
+            </div>
+            <a href="/">Back to Home</a>
+        </div>
+        <div>
+            <section class="createCourse">
+                
+                <form action="/item/<%= item.id %>/update" method="POST">
+                    <label for="namecourse">Update Course Name: </label>
+                    <input type="text" id="namecourse" name="updatename" value="<%= item.name %>" required>
+                    <%- include('./partials/errors.ejs') %>
+                    <div>
+                        <label for="categoryinput"> Update Category: <%= item.category.toUpperCase() %></label>
+                        <select id="categoryinput" name="category" value="<%= item.category %>">
+                            <optgroup label="Category">
+                                <% if(categories.length>0) { %>
+                                    <% categories.forEach( (e)=>{ %>
+                                        <option value=<%= e.id %>> <%= e.category.toLowerCase() %></option>      
+                                        <% }) %>
+                                            <% } else {%>
+                                                <p> Empty Section </p>
+                                                <% } %>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="typeinput"> Update Type of Course: <%= item.type.toUpperCase() %> </label>
+                        <select id="typeinput" name="type" value="<%= item.type %>" >
+                            <optgroup label="Type">
+                            <% if(types.length>0) { %>
+                                <% types.forEach( (type)=>{ %>
+                                    <option value="<%= type %>"><%= type.toLowerCase() %></option>      
+                                    <% }) %>
+                                        <% } else {%>
+                                            <p> Empty Section </p>
+                                            <% } %>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="levelinput"> Update Level: <%= item.levelname.toUpperCase() %> </label>
+                        <select id="levelinput" name="level" value="<%= item.levelname %>" >
+                            <optgroup label="Level">
+                                <% if(levels.length>0) { %>
+                                    <% levels.forEach( (e)=>{ %>
+                                        <option value=<%= e.id %>> <%= e.levelname.toLowerCase() %></option>      
+                                        <% }) %>
+                                            <% } else {%>
+                                                <p> Empty Section </p>
+                                                <% } %>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <button>Update Course</button>
+                    </div>
+                    
+                </form>
+            </section>
+               
+                
+            </div>
+
+
+
+    </div>
+
+
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

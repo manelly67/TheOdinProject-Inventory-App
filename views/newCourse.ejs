@@ -1,0 +1,90 @@
+<!-- index.ejs -->
+<html>
+
+<%- include('./partials/head.ejs') %>
+
+    <body>
+
+        <div class="content">
+            <div>
+                <div>
+                    <h1><%= appObject.appName %></h1>
+                    <h2>Many courses <i>Start learning this beautiful art</i></h2>
+                </div>
+                <a href="/">Back to Home</a>
+            </div>
+            
+            <div>
+            <section class="createCourse">
+                
+                <form action="/newcourse" method="POST">
+                    <label for="namecourse">Course Name: </label>
+                    <input type="text" id="namecourse" name="name" required>
+                    <%- include('./partials/errors.ejs') %>
+                    <div>
+                        <label for="categoryinput"> Choose Category: </label>
+                        <select id="categoryinput" name="category">
+                            <optgroup label="Category">
+                                <% if(categories.length>0) { %>
+                                    <% categories.forEach( (e)=>{ %>
+                                        <option value=<%= e.id %>> <%= e.category.toLowerCase() %></option>      
+                                        <% }) %>
+                                            <% } else {%>
+                                                <p> Empty Section </p>
+                                                <% } %>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="typeinput"> Type of Course: </label>
+                        <select id="typeinput" name="type">
+                            <optgroup label="Type">
+                            <% if(types.length>0) { %>
+                                <% types.forEach( (type)=>{ %>
+                                    <option value="<%= type %>"><%= type.toLowerCase() %></option>      
+                                    <% }) %>
+                                        <% } else {%>
+                                            <p> Empty Section </p>
+                                            <% } %>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="levelinput"> Choose Level: </label>
+                        <select id="levelinput" name="level">
+                            <optgroup label="Level">
+                                <% if(levels.length>0) { %>
+                                    <% levels.forEach( (e)=>{ %>
+                                        <option value=<%= e.id %>> <%= e.levelname.toLowerCase() %></option>      
+                                        <% }) %>
+                                            <% } else {%>
+                                                <p> Empty Section </p>
+                                                <% } %>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <button>Submit</button>
+                    </div>
+                    
+                </form>
+            </section>
+               
+                
+            </div>
+            
+            
+
+        </div>
+
+            
+            <%- include('./partials/footer.ejs') %>
+
+            <script>
+               
+
+            </script>
+
+    </body>
+
+</html>

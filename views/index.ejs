@@ -1,0 +1,52 @@
+<!-- index.ejs -->
+<html>
+
+<%- include('./partials/head.ejs') %>
+
+    <body>
+
+        <div class="content">
+            <div>
+                <div>
+                    <h1><%= appObject.appName %></h1>
+                    <h2>Many courses <i>Start learning this beautiful art</i></h2>
+                </div>
+                <a href="/">Back to Home</a>
+            </div>
+            
+            <div>
+            <section>
+                <nav>
+                    <%- include('./partials/navbar.ejs') %>
+                </nav>   
+            </section>
+                <div class="setOfButtons">
+                    <button>Add Category</button>
+                    <button>Delete Category</button>
+                    <button>Update Category</button>
+                    <div>
+                        <button id="newCourse">ADD NEW COURSE</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+
+        </div>
+
+            
+            <%- include('./partials/footer.ejs') %>
+
+            <script>
+                const newCourseButton= document.getElementById('newCourse');
+
+                newCourseButton.addEventListener('click', (e) => {
+                    window.location.href= "/newcourse" ;
+                });
+
+            </script>
+
+    </body>
+
+</html>

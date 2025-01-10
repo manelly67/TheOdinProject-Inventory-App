@@ -1,0 +1,270 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;1,700&display=swap');
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* end of reset of style browser */
+
+body {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    font-family: 'Noto Serif', serif;
+    background-color: #f2eecf;
+}
+
+h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+p,h1,h2,h3,ul {
+    margin: 0;
+    padding: 0;
+    color: #352113
+}
+
+a {
+    text-align: center;
+    text-decoration: none;
+    color: #5d3f26;
+}
+
+nav>ul>li>a {
+    text-align: center;
+    text-decoration: none;
+    color: #352113;
+    font-size: 1.2rem;
+}
+
+a:hover {
+    color: orange;
+    text-shadow: 1px 1px 2px #f9f8ed;
+}
+
+nav>ul>li>a:hover {
+    font-size: 1.3rem;
+}
+
+.content {
+    min-height: 500px;
+    margin: 0 auto;
+}
+
+.content>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+
+.content>div>section {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+   
+}
+
+.setOfButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.levelLink {
+    --width_link: 150px;
+    --height_link: 100px;
+    border: 3px solid #f2eecf;
+    width: var(--width_link);
+    height: var(--height_link);
+    padding-top: calc(var(--height_link) * 0.4);
+    background-color: #f9f8ed;
+    box-shadow: 1px 1px 1px orange;
+}
+
+nav {
+    margin-top: 30px;
+}
+
+ul {
+    list-style-type: none;
+
+}
+
+.itemsSection {
+    margin: 0 auto;
+    flex-direction: column;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.ulItem {
+    margin-top: 10px;
+    width: calc(100vw * 0.7);
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+
+.item {
+    
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+
+
+nav>ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 25px;
+
+}
+
+nav>ul>li {
+    text-align: center;
+
+}
+
+.setOfButtons>button,
+#updateButton,
+#deletebutton {
+    background-color: #352113;
+    color: #e6dba2;
+    padding: 6px;
+    border: 0;
+    font-size: 1rem;
+}
+
+.setOfButtons>button:hover,
+#updateButton:hover,
+#deletebutton:hover {
+    color: #f2eecf;
+    box-shadow: 1px 2px 3px orange;
+}
+
+.setOfButtons>div>button,
+.createCourse button,
+#newCourse {
+    background-color: #e6dba2;
+    color: #352113;
+    padding: 10px;
+    border: 0;
+}
+
+.setOfButtons>div>button:hover,
+.createCourse button:hover,
+#newCourse:hover {
+    font-weight: 900;
+    box-shadow: 1px 2px 3px orange;
+}
+
+#newCourse {
+    position:absolute;
+    right: 30px;
+}
+
+footer {
+    color: #777;
+    text-align: center;
+    margin: 80px auto 20px;
+}
+
+/* create course style*/
+
+.createCourse form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.createCourse input,
+.createCourse optgroup {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+}
+
+.createCourse label {
+    display: block;
+    margin-top: 15px;
+}
+
+.createCourse select {
+    height: 50px;
+    font-size: 1rem;
+}
+
+optgroup {
+    background-color: #e6dba2;
+    color: #352113;
+}
+
+
+.createCourse button {
+    margin-top: 30px;
+    font-size: 1.2rem;
+}

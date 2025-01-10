@@ -1,0 +1,76 @@
+<html>
+
+<%- include('./partials/head.ejs') %>
+
+    <body>
+
+        <div class="content">
+            <div>
+                <div>
+                    <h1><%= appObject.appName %></h1>
+                    <h2>Many courses <i>Start learning this beautiful art</i></h2>
+                </div>
+                <a href="/">Back to Home</a>
+            </div>
+            
+            <div class="itemsSection">
+            
+            <p class="levelLink"><%= category.toUpperCase() %></p>
+
+            <section>
+              
+                <ul class="ulItem">
+                    <% if(courses.length>0) { %>
+                        <% courses.forEach( (item) => { %>
+                            <li class="item">
+                                <p style="text-shadow: 1px 1px 2px orange;">&#9856</p>
+                                <h2><%= item.name %></h2>
+                                <p><%= item.category %></p>
+                                <p><%= item.type %></p>
+                                <h3><%= item.levelname %></h3>
+                                <div style="display:flex; flex-direction: row;gap:10px">
+                                    
+                                    <a id="updateButton" href="/item/<%= item.id %>/update">UPDATE</a>
+                                
+                                    <form action="/item/<%= item.id %>/delete" method="POST" >
+                                        <button type="submit" id="deletebutton"
+                                          onclick="return confirm('Are you sure you want to delete this item?');">DELETE</button>
+                                      </form>
+                                    
+                                </div>
+                               
+                            </li>
+                           
+                            <% }); %>
+                                <% } else {%>
+                                    <p> No items for display </p>
+                                    <% } %>
+            </section>
+                
+                
+            </div>
+            
+            
+
+        </div>
+        
+        <div>
+            <button id="newCourse">ADD NEW COURSE</button>
+        </div>
+            
+            <%- include('./partials/footer.ejs') %>
+
+            <script>
+                const newCourseButton= document.getElementById('newCourse');
+                
+                newCourseButton.addEventListener('click', (e) => {
+                    window.location.href= "/newcourse" ;
+                });
+
+
+            </script>
+            
+
+    </body>
+
+</html>

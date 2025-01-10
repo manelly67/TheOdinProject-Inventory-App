@@ -1,0 +1,23 @@
+<ul>
+    <% if(categories.length>0) { %>
+        <% categories.forEach( (e)=>{ %>
+            <li class="levelLink">
+                <a href="/all/<%= e.id %>">
+                
+                    <%= `${e.category.toUpperCase()} `%>
+                
+                </a>
+            </li>
+           
+            <% }) %>
+                <% } else {%>
+                    <p> Empty Section </p>
+                    <% } %>
+
+                    <li class="levelLink">
+                        <a href="/all">
+                            ALL CATEGORIES
+                        </a>
+                    </li>
+                </ul>
+    
