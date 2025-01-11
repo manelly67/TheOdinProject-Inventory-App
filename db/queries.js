@@ -13,14 +13,10 @@ async function getItem(id) {
      RIGHT JOIN levels ON (origami_courses.id_level=levels.id) WHERE origami_courses.id=${id}
     `  );
     return rows;
-}
-
-async function deleteItem(id) {
-  await pool.query(`DELETE FROM origami_courses WHERE id=${id}`);
-}
+};
 
 async function getAllCategories() {
-  const { rows } = await pool.query("SELECT * FROM categories");
+  const { rows } = await pool.query("SELECT * FROM categories ORDER BY id");
   return rows;
 };
 
@@ -59,7 +55,29 @@ async function updateCourse(courseToUpdate) {
   const idCategory = Number(courseToUpdate.id_category);
   const idLevel = Number(courseToUpdate.id_level);
   await pool.query(`UPDATE origami_courses SET name = '${courseToUpdate.name}', type = '${courseToUpdate.type}', id_category = ${idCategory}, id_level = ${idLevel}  WHERE id = ${idToUpdate} `);
-}
+};
+
+async function deleteItem(id) {
+  await pool.query(`DELETE FROM origami_courses WHERE id=${id}`);
+};
+
+async function insertCategory(categoryToAdd){
+  switch(categoryToAdd !== ''){
+    case true:
+      await pool.query(`INSERT INTO categories(category) VALUES ('${categoryToAdd}')`);
+    case false:
+      break;
+  }
+};
+
+async function updateCategory(id,nameUpdated){
+  const idToUpdate = Number(id);
+  await pool.query(`UPDATE categories SET category = '${nameUpdated}' WHERE id = ${idToUpdate}`);
+};
+
+async function deleteCategory(id) {
+  await pool.query(`DELETE FROM categories WHERE id=${id}`)
+};
 
 module.exports = {
   getNameCategory,
@@ -71,4 +89,7 @@ module.exports = {
   getCoursesByCategory,
   insertCourse,
   updateCourse,
+  insertCategory,
+  updateCategory,
+  deleteCategory,
 };

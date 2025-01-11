@@ -1,5 +1,5 @@
 <ul>
-    <% if(categories.length>0) { %>
+    <% if(categories.length>0 && categoryIndex !== 'update') { %>
         <% categories.forEach( (e)=>{ %>
             <li class="levelLink">
                 <a href="/all/<%= e.id %>">
@@ -7,17 +7,50 @@
                     <%= `${e.category.toUpperCase()} `%>
                 
                 </a>
+                <br>
+                <div class="smallButtonsSet">
+                    <div>
+                        <button 
+                        onclick="{
+                            update('<%= e.id %>');
+                            }" >UPDATE  </button>
+                    </div>   
+                    <div>
+                        <form action="/deletecategory/<%= e.id %>" method="POST" >
+                            <button type="submit" 
+                              onclick="return confirm('Are you sure you want to delete this category?');">DELETE</button>
+                          </form>
+                    </div>             
+                    
+                </div>
             </li>
            
             <% }) %>
                 <% } else {%>
-                    <p> Empty Section </p>
-                    <% } %>
+                    <%- include('./update.ejs') %>
+                
+                <% } %>
 
                     <li class="levelLink">
                         <a href="/all">
                             ALL CATEGORIES
                         </a>
                     </li>
-                </ul>
+
+                    <% if ( categoryIndex === "add") {%>
+                        <li id="newCategoryDiv" class="levelLink">
+                            <form action="/newcategory" method="POST"> 
+                                 <label for="namecategory">NEW CATEGORY: </label>
+                                 <input type="text" id="namecategory" name="newcategory" />
+                                 <%- include('./errors.ejs') %>
+                                 <button class="submitCategory">Submit</button>
+                             </form>
+                         </li>
+                    <% } else { %>
+                        <%= null %>
+                        <% }%>
+                    
+                           
+
+    </ul>
     

@@ -4,7 +4,7 @@ const { body, validationResult} = require("express-validator");
 
 async function getHomePage(req, res) {
     const categories = await db.getAllCategories();
-    res.render("index", { appObject: appObject, title: appObject.title[0], categories: categories });
+    res.render("index", { appObject: appObject, title: appObject.title[0], categories: categories, categoryIndex:'get' });
   };
 
 async function getAllCourses(req, res) {
@@ -29,11 +29,15 @@ async function newCourseGet(req, res) {
   res.render("newCourse", { appObject: appObject, title: appObject.title[3], types:types, categories:categories, levels:levels});
 };
 
-
+// validate Course
 const lengthErr = "30 characters max.";
 const validateCourse = [
   body("name").trim().notEmpty().escape().isLength({ min: 1, max: 30 }).withMessage(`Course name ${lengthErr}`),
 ];
+const validateCourse2 = [
+  body("updatename").trim().notEmpty().escape().isLength({ min: 1, max: 30 }).withMessage(`Course name ${lengthErr}`),
+];
+
 
 const newCoursePost =[
    validateCourse,
@@ -71,13 +75,8 @@ async function itemUpdateGet(req,res) {
   const types = appObject.typeOfCourse;
   const categories = await db.getAllCategories();
   const levels = await db.getAllLevels();
-  console.log(item);
   res.render("updateCourse",{appObject: appObject,title: `Update Item ${id}`,item:item[0],types:types,categories:categories,levels:levels});
 };
-
-const validateCourse2 = [
-  body("updatename").trim().notEmpty().escape().isLength({ min: 1, max: 30 }).withMessage(`Course name ${lengthErr}`),
-];
 
 const itemUpdatePost = [
   validateCourse2,
@@ -108,7 +107,91 @@ const itemUpdatePost = [
 
 
 
+// validate Category
+const lengthCategErr = 'max 15 characters';
+const validateCategory = [
+  body("newcategory").trim().escape().isLength({ min: 0, max: 15 }).withMessage(`${lengthCategErr}`),
+];
+const validateCategory2 = [
+  body("updatecategory").trim().escape().isLength({ min: 0, max: 15 }).withMessage(`${lengthCategErr}`),
+];
 
+/* New Category Get - Add - Update - Delete */
+
+async function newCategoryGet(req,res) {
+  const categories = await db.getAllCategories();
+    res.render("index", { appObject: appObject, title: appObject.title[0], categories: categories, categoryIndex:'add' });
+};
+
+const newCategoryPost = [
+  validateCategory,
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const categories = await db.getAllCategories();
+      return res.status(400).render("index", {
+        appObject: appObject, 
+        title: appObject.title[0], 
+        categories:categories, 
+        categoryIndex:'add',
+        errors: errors.array(),
+      });
+    }
+    const categoryToAdd = req.body.newcategory;
+    await db.insertCategory(categoryToAdd);
+    res.redirect('/');
+  }
+];
+
+async function updateCategoryGet(req,res) {
+  const categories = await db.getAllCategories();
+  const id = req.params.id;
+  const formAction = `/updatecategory/${id}`;
+  const categoryValue = await db.getNameCategory(id);
+  res.render("index", { 
+    appObject: appObject, 
+    title: appObject.title[0], 
+    categories: categories, 
+    categoryIndex:'update',
+    idToUpdate: id, 
+    categoryValue:categoryValue,
+    formAction: formAction,
+   });
+};
+
+const updateCategoryPost = [
+   validateCategory2,
+   async (req, res) => {
+    const errors = validationResult(req);
+    const categories = await db.getAllCategories();
+    const id = req.params.id;
+    const formAction = `/updatecategory/${id}`;
+    const categoryValue = await db.getNameCategory(id);
+    if (!errors.isEmpty()) {
+      const categories = await db.getAllCategories();
+      return res.status(400).render("index", {
+        appObject: appObject, 
+        title: appObject.title[0], 
+        categories: categories, 
+        categoryIndex:'update',
+        idToUpdate: id, 
+        categoryValue:categoryValue,
+        formAction: formAction,
+        errors: errors.array(),
+      });
+    }
+    const nameUpdated = req.body.updatecategory;
+    await db.updateCategory(id,nameUpdated);
+    res.redirect('/');
+  }
+];
+
+
+async function deleteCategoryPost(req,res) {
+  const id = req.params.id;
+  await db.deleteCategory(id);
+  res.redirect('/');
+}
 
   module.exports = {
     getHomePage,
@@ -118,5 +201,10 @@ const itemUpdatePost = [
     newCoursePost,
     itemUpdateGet,
     itemUpdatePost,
-    itemDeletePost, 
+    itemDeletePost,
+    newCategoryGet,
+    newCategoryPost,
+    updateCategoryGet,
+    updateCategoryPost,
+    deleteCategoryPost,
   };

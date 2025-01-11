@@ -15,35 +15,50 @@
             </div>
             
             <div>
-            <section>
+                <section>
                 <nav>
                     <%- include('./partials/navbar.ejs') %>
                 </nav>   
-            </section>
-                <div class="setOfButtons">
-                    <button>Add Category</button>
-                    <button>Delete Category</button>
-                    <button>Update Category</button>
-                    <div>
+                </section>
+                    <div class="setOfButtons">
+                        <button id="newCategory">Add Category</button>
+                        <div>
                         <button id="newCourse">ADD NEW COURSE</button>
+                        </div>
                     </div>
-                </div>
                 
             </div>
             
             
 
+        
         </div>
-
             
             <%- include('./partials/footer.ejs') %>
 
             <script>
+                // new course
                 const newCourseButton= document.getElementById('newCourse');
 
                 newCourseButton.addEventListener('click', (e) => {
                     window.location.href= "/newcourse" ;
                 });
+
+                // new category
+                const newCategoryButton= document.getElementById('newCategory');
+                
+                newCategoryButton.addEventListener('click', (e) => {
+                    window.location.href= "/newcategory" ;
+                });
+
+                // update category
+              
+                function update(arg1){
+                    // arg1 is the id category 
+                    window.location.href= `/updatecategory/${arg1}` ;
+                   
+                };
+
 
             </script>
 

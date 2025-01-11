@@ -61,6 +61,13 @@ body {
     background-color: #f2eecf;
 }
 
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
+
 h1 {
     font-size: 1.6rem;
     font-weight: 800;
@@ -118,6 +125,7 @@ nav>ul>li>a:hover {
     display: flex;
     justify-content: center;
     margin: 0 auto;
+    max-width: 1000px;
    
 }
 
@@ -129,6 +137,7 @@ nav>ul>li>a:hover {
 }
 
 .levelLink {
+    position: relative;
     --width_link: 150px;
     --height_link: 100px;
     border: 3px solid #f2eecf;
@@ -139,6 +148,24 @@ nav>ul>li>a:hover {
     box-shadow: 1px 1px 1px orange;
 }
 
+.smallButtonsSet {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    display:flex; flex-direction: column; gap:5px;
+}
+
+.smallButtonsSet > div> button,
+.smallButtonsSet >  div> form > button {
+    font-size: 10px;
+    width: 50px;
+    background-color: #352113;
+    color: #e6dba2;
+    padding: 3px;
+    border: 0;
+}
+
+
 nav {
     margin-top: 30px;
 }
@@ -146,6 +173,25 @@ nav {
 ul {
     list-style-type: none;
 
+}
+
+#newCategoryDiv,
+#updateCategoryDiv {
+    background-color: chocolate;
+}
+
+#newCategoryDiv > form,
+#updateCategoryDiv > form {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    align-items: center;
+}
+
+#newCategoryDiv > form > input,
+#updateCategoryDiv > form > input {
+    width: calc(var(--width_link)*0.9);
+    background-color: #e6dba2;
 }
 
 .itemsSection {
@@ -201,13 +247,16 @@ nav>ul>li {
 
 .setOfButtons>button:hover,
 #updateButton:hover,
-#deletebutton:hover {
+#deletebutton:hover,
+.smallButtonsSet > div> button:hover,
+.smallButtonsSet >  div> form > button:hover {
     color: #f2eecf;
     box-shadow: 1px 2px 3px orange;
 }
 
 .setOfButtons>div>button,
 .createCourse button,
+.submitCategory,
 #newCourse {
     background-color: #e6dba2;
     color: #352113;
@@ -217,6 +266,7 @@ nav>ul>li {
 
 .setOfButtons>div>button:hover,
 .createCourse button:hover,
+.submitCategory:hover,
 #newCourse:hover {
     font-weight: 900;
     box-shadow: 1px 2px 3px orange;
