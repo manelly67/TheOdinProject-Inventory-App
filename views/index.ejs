@@ -13,7 +13,11 @@
                 </div>
                 <a href="/">Back to Home</a>
             </div>
-            
+            <% if (deleteCategMessage!==undefined){ %>
+                <p style="color:red;text-align: center;"><%=  deleteCategMessage  %></p> 
+            <% } else {  %>
+              <%   null %>
+            <% } %>
             <div>
                 <section>
                 <nav>
@@ -28,16 +32,23 @@
                     </div>
                 
             </div>
-            
-            
-
         
+            <% if (needCredential===true){ %>
+                <%- include('./partials/credential.ejs') %>
+            <% } else {  %>
+              <%   null %>
+            <% } %>
+                   
         </div>
+
+      
             
             <%- include('./partials/footer.ejs') %>
 
             <script>
                 // new course
+                let deleteCategMessage = undefined;
+
                 const newCourseButton= document.getElementById('newCourse');
 
                 newCourseButton.addEventListener('click', (e) => {
@@ -52,12 +63,18 @@
                 });
 
                 // update category
-              
+               
                 function update(arg1){
                     // arg1 is the id category 
-                    window.location.href= `/updatecategory/${arg1}` ;
-                   
+                    checkCredentials(`${arg1}`,'category','update');
                 };
+
+
+                async function checkCredentials(arg1,arg2,arg3){
+                    // arg is the password window.location.href to be udated
+                    console.log('funcion chequear crendenciales');
+                    window.location.href= `/credentials/${arg3}_${arg2}_${arg1}` ; 
+                }
 
 
             </script>

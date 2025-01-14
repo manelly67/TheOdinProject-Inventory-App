@@ -26,5 +26,8 @@ router.post("/updatecategory/:id", appController.updateCategoryPost);
 
 router.post("/deletecategory/:id", appController.deleteCategoryPost);
 
+router.get('/credentials/:id',appController.checkCredentGet);
+router.post('/credentials/:id',appController.checkCredentPost);
+
 
 module.exports = router;

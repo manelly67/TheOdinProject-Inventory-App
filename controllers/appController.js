@@ -2,9 +2,21 @@ const { appObject } = require('../appObject');
 const db = require("../db/queries");
 const { body, validationResult} = require("express-validator");
 
+const myObject = {};
+require('dotenv').config({ processEnv: myObject });
+
+
 async function getHomePage(req, res) {
     const categories = await db.getAllCategories();
-    res.render("index", { appObject: appObject, title: appObject.title[0], categories: categories, categoryIndex:'get' });
+    res.render("index", { 
+      appObject: appObject, 
+      title: appObject.title[0], 
+      categories: categories, 
+      categoryIndex:'get',
+      deleteCategMessage:undefined,
+      needCredential:false,
+      adminPassword:myObject.ADMINPASSWORD,
+     });
   };
 
 async function getAllCourses(req, res) {
@@ -120,7 +132,14 @@ const validateCategory2 = [
 
 async function newCategoryGet(req,res) {
   const categories = await db.getAllCategories();
-    res.render("index", { appObject: appObject, title: appObject.title[0], categories: categories, categoryIndex:'add' });
+    res.render("index", { 
+      appObject: appObject, 
+      title: appObject.title[0], 
+      categories: categories, 
+      categoryIndex:'add',
+      deleteCategMessage:undefined,
+      needCredential:false,
+     });
 };
 
 const newCategoryPost = [
@@ -134,6 +153,8 @@ const newCategoryPost = [
         title: appObject.title[0], 
         categories:categories, 
         categoryIndex:'add',
+        deleteCategMessage:undefined,
+        needCredential:false,
         errors: errors.array(),
       });
     }
@@ -153,6 +174,8 @@ async function updateCategoryGet(req,res) {
     title: appObject.title[0], 
     categories: categories, 
     categoryIndex:'update',
+    deleteCategMessage:undefined,
+    needCredential:false,
     idToUpdate: id, 
     categoryValue:categoryValue,
     formAction: formAction,
@@ -174,6 +197,8 @@ const updateCategoryPost = [
         title: appObject.title[0], 
         categories: categories, 
         categoryIndex:'update',
+        deleteCategMessage:undefined,
+        needCredential:false,
         idToUpdate: id, 
         categoryValue:categoryValue,
         formAction: formAction,
@@ -186,11 +211,81 @@ const updateCategoryPost = [
   }
 ];
 
+async function countItemsIndex(arg) {
+  const id = arg;
+  const numberOfItems = await db.countItems(id);
+  if (numberOfItems===0){
+    return true;
+  }else{
+    return false;
+  }
+};
 
 async function deleteCategoryPost(req,res) {
   const id = req.params.id;
-  await db.deleteCategory(id);
-  res.redirect('/');
+  const indicator = await countItemsIndex(id);
+  switch(indicator){
+    case true:
+      await db.deleteCategory(id);
+      res.redirect('/');
+      break;
+    case false:
+      const categories = await db.getAllCategories();
+      res.render("index", { 
+        appObject: appObject, 
+        title: appObject.title[0], 
+        categories: categories, 
+        categoryIndex:'get',
+        needCredential:false,
+        deleteCategMessage:'Categories with items cannot be deleted',
+       }); 
+      break;
+  }
+}
+
+async function checkCredentGet(req,res) {
+  const id = req.params.id;
+  const categories = await db.getAllCategories();
+  res.render("index", { 
+    appObject: appObject, 
+    title: appObject.title[0], 
+    categories: categories, 
+    categoryIndex:'get',
+    deleteCategMessage:undefined,
+    needCredential:true,
+    details: id,
+   });
+}
+
+async function checkCredentPost(req,res) {
+  const {password} = req.body;
+  const inf = req.params.id;
+  console.log(password);
+  console.log(inf);
+  console.log(myObject.ADMINPASSWORD);
+  const [action,type,id] = inf.split('_');
+  console.log(action,type,id);
+  switch(password===myObject.ADMINPASSWORD){
+    case true:
+      switch(action==='update' && type==='category'){
+        case true:
+          return res.redirect(`/updatecategory/${id}`);
+      }
+      
+    case false:
+      console.log('usuario no autorizado');
+      const categories = await db.getAllCategories();
+      res.render("index", { 
+        appObject: appObject, 
+        title: appObject.title[0], 
+        categories: categories, 
+        categoryIndex:'get',
+        needCredential:false,
+        deleteCategMessage:'Unauthorized User',
+       }); 
+  }
+
+
 }
 
   module.exports = {
@@ -206,5 +301,8 @@ async function deleteCategoryPost(req,res) {
     newCategoryPost,
     updateCategoryGet,
     updateCategoryPost,
+    countItemsIndex,
     deleteCategoryPost,
+    checkCredentGet,
+    checkCredentPost,
   };

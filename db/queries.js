@@ -6,6 +6,12 @@ async function getNameCategory(id){
   return category;
 };
 
+async function countItems(id) {
+  const {rows} = await pool.query(`SELECT COUNT (id) FROM origami_courses WHERE id_category = ${id}`);
+  const numberOfItems = rows[0].count;
+  return Number(numberOfItems);
+}
+
 async function getItem(id) {
   const { rows } = await pool.query(
     `SELECT origami_courses.id, origami_courses.name, origami_courses.type, categories.category,levels.levelname
@@ -92,4 +98,5 @@ module.exports = {
   insertCategory,
   updateCategory,
   deleteCategory,
+  countItems,
 };
