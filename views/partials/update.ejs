@@ -27,12 +27,12 @@
                         }" >UPDATE  </button>
                 </div>   
                 <div>
-                    <form action="/deletecategory/<%= e.id %>" method="POST" >
+                    <form action="/credentials/delete_category_<%= e.id %>" method="GET" > 
                         <button type="submit" 
-                        onclick="{
-                            return confirm('are you sure Delete this?');
+                          onclick="{
+                                return confirm('Are you sure about delete this?');   
                             }">DELETE</button>
-                        </form>
+                      </form> 
                 </div>             
                 
             </div>

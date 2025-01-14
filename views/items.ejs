@@ -29,13 +29,18 @@
                                 <p><%= item.type %></p>
                                 <h3><%= item.levelname %></h3>
                                 <div style="display:flex; flex-direction: row;gap:10px">
-                                    
-                                    <a id="updateButton" href="/item/<%= item.id %>/update">UPDATE</a>
-                                
-                                    <form action="/item/<%= item.id %>/delete" method="POST" >
+                                 
+                                    <button id="updateButton"
+                                         onclick="{
+                                            update('<%= item.id %>');
+                                                }" >UPDATE  </button>
+
+                                    <form action="/credentials/delete_item_<%= item.id %>" method="GET" > 
                                         <button type="submit" id="deletebutton"
-                                          onclick="return confirm('Are you sure you want to delete this item?');">DELETE</button>
-                                      </form>
+                                                onclick="{
+                                                return confirm('Are you sure about delete this?');   
+                                            }">DELETE</button>
+                                    </form> 
                                     
                                 </div>
                                
@@ -67,6 +72,17 @@
                     window.location.href= "/newcourse" ;
                 });
 
+                // update course item
+               
+                function update(arg1){
+                    // arg1 is the id category 
+                    checkCredentials(`${arg1}`,'item','update');
+                };
+
+                async function checkCredentials(arg1,arg2,arg3){
+                    // arg1 is the id the arg2 is the type (category/item) arg3 is the action (delete/update)
+                    window.location.href= `/credentials/${arg3}_${arg2}_${arg1}` ; 
+                }
 
             </script>
             

@@ -61,6 +61,7 @@ body {
     background-color: #f2eecf;
 }
 
+/* style input credential form */
 .centerInput {
     width: 150px;
     height: 100px;
@@ -86,14 +87,7 @@ body {
 .centerInput>button:hover{
     background-color: #5d3f26;
 }
-
-.hide {
-    display: none;
-}
-.show {
-    display: block;
-}
-
+/* style basic elements*/
 h1 {
     font-size: 1.6rem;
     font-weight: 800;
@@ -119,6 +113,7 @@ a {
     color: #5d3f26;
 }
 
+/* style category display */
 nav>ul>li>a {
     text-align: center;
     text-decoration: underline;
@@ -220,6 +215,7 @@ ul {
     background-color: #e6dba2;
 }
 
+/* style course items display*/
 .itemsSection {
     margin: 0 auto;
     flex-direction: column;
@@ -309,7 +305,7 @@ footer {
     margin: 80px auto 20px;
 }
 
-/* create course style*/
+/* create course form style*/
 
 .createCourse form {
     max-width: 400px;

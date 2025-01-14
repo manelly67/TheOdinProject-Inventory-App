@@ -1,5 +1,8 @@
 const express = require("express");
 const appController = require("../controllers/appController");
+const credentialController = require("../controllers/credentials");
+const categoryController = require("../controllers/categoryController");
+const itemController = require("../controllers/itemsController");
 const router = express.Router();
 
 router.get("/", appController.getHomePage );
@@ -9,25 +12,26 @@ router.get("/all", appController.getAllCourses );
 router.get("/all/:id", appController.getCoursesByCategory );
 
 // courses items
-router.get("/newcourse", appController.newCourseGet);
-router.post("/newcourse", appController.newCoursePost);
+router.get("/newcourse", itemController.newCourseGet);
+router.post("/newcourse", itemController.newCoursePost);
 
-router.get("/item/:id/update", appController.itemUpdateGet);
-router.post("/item/:id/update", appController.itemUpdatePost);
+router.get("/item/:id/update", itemController.itemUpdateGet);
+router.post("/item/:id/update", itemController.itemUpdatePost);
 
-router.post("/item/:id/delete", appController.itemDeletePost);
+router.post("/item/:id/delete", itemController.itemDeletePost);
 
 // categories
-router.get("/newcategory", appController.newCategoryGet);
-router.post("/newcategory", appController.newCategoryPost);
+router.get("/newcategory", categoryController.newCategoryGet);
+router.post("/newcategory", categoryController.newCategoryPost);
 
-router.get("/updatecategory/:id", appController.updateCategoryGet);
-router.post("/updatecategory/:id", appController.updateCategoryPost);
+router.get("/updatecategory/:id", categoryController.updateCategoryGet);
+router.post("/updatecategory/:id", categoryController.updateCategoryPost);
 
-router.post("/deletecategory/:id", appController.deleteCategoryPost);
+router.post("/deletecategory/:id", categoryController.deleteCategoryPost);
 
-router.get('/credentials/:id',appController.checkCredentGet);
-router.post('/credentials/:id',appController.checkCredentPost);
+// credentials
+router.get('/credentials/:id',credentialController.checkCredentGet);
+router.post('/credentials/:id',credentialController.checkCredentPost);
 
 
 module.exports = router;
