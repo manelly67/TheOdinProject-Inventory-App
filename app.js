@@ -25,6 +25,7 @@ app.use((req, res) => {
     res.status(404).render("404", { appObject:appObject, title:appObject.title[1]});
 });
 
+
 app.listen(port, host, () => {
     console.log(`Server is running on ${host}:${port}`);
 }); 
