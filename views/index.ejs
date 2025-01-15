@@ -1,83 +1,71 @@
 <!-- index.ejs -->
 <html>
+  <%- include('./partials/head.ejs') %>
 
-<%- include('./partials/head.ejs') %>
-
-    <body>
-
-        <div class="content">
-            <div>
-                <div>
-                    <h1><%= appObject.appName %></h1>
-                    <h2>Many courses <i>Start learning this beautiful art</i></h2>
-                </div>
-                <a href="/">Back to Home</a>
-            </div>
-            <% if (deleteCategMessage!==undefined){ %>
-                <p style="color:red;text-align: center;"><%=  deleteCategMessage  %></p> 
-            <% } else {  %>
-              <%   null %>
-            <% } %>
-            <div>
-                <section>
-                <nav>
-                    <%- include('./partials/navbar.ejs') %>
-                </nav>   
-                </section>
-                    <div class="setOfButtons">
-                        <button id="newCategory">Add Category</button>
-                        <div>
-                        <button id="newCourse">ADD NEW COURSE</button>
-                        </div>
-                    </div>
-                
-            </div>
-        
-            <% if (needCredential===true){ %>
-                <%- include('./partials/credential.ejs') %>
-            <% } else {  %>
-              <%   null %>
-            <% } %>
-                   
+  <body>
+    <div class="content">
+      <div>
+        <div>
+          <h1><%= appObject.appName %></h1>
+          <h2>Many courses <i>Start learning this beautiful art</i></h2>
         </div>
+        <a href="/">Back to Home</a>
+      </div>
+      <% if (deleteCategMessage!==undefined){ %>
+      <p style="color: red; text-align: center">
+        <%= deleteCategMessage %></p>
+      <% } else { %> 
+        <% null %> 
+        <% } %>
+      <div>
+        <section>
+          <nav><%- include('./partials/navbar.ejs') %></nav>
+        </section>
+        <div class="setOfButtons">
+          <button id="newCategory">Add Category</button>
+          <div>
+            <button id="newCourse">ADD NEW COURSE</button>
+          </div>
+        </div>
+      </div>
 
-      
-            
-            <%- include('./partials/footer.ejs') %>
+      <% if (needCredential===true){ %> 
+        <%- include('./partials/credential.ejs') %> 
+        <% } else { %> 
+        <% null %> 
+        <% } %>
+    </div>
 
-            <script>
-                // new course
-                let deleteCategMessage = undefined;
+    <%- include('./partials/footer.ejs') %>
 
-                const newCourseButton= document.getElementById('newCourse');
+    <script>
+      // new course
+      let deleteCategMessage = undefined;
 
-                newCourseButton.addEventListener('click', (e) => {
-                    window.location.href= "/newcourse" ;
-                });
+      const newCourseButton = document.getElementById('newCourse');
 
-                // new category
-                const newCategoryButton= document.getElementById('newCategory');
-                
-                newCategoryButton.addEventListener('click', (e) => {
-                    window.location.href= "/newcategory" ;
-                });
+      newCourseButton.addEventListener('click', (e) => {
+        window.location.href = '/newcourse';
+      });
 
-                // update category
-               
-                function update(arg1){
-                    // arg1 is the id category 
-                    checkCredentials(`${arg1}`,'category','update');
-                };
+      // new category
+      const newCategoryButton = document.getElementById('newCategory');
 
+      newCategoryButton.addEventListener('click', (e) => {
+        window.location.href = '/newcategory';
+      });
 
-                async function checkCredentials(arg1,arg2,arg3){
-                    // arg1 is the id the arg2 is the type (category/item) arg3 is the action (delete/update)
-                    window.location.href= `/credentials/${arg3}_${arg2}_${arg1}` ; 
-                }
+      // update category
 
+      function update(arg1) {
+        // arg1 is the id category
+        checkCredentials(`${arg1}`, 'category', 'update');
+      }
 
-            </script>
-
-    </body>
-
+      async function checkCredentials(arg1, arg2, arg3) {
+        // arg1 is the id the arg2 is the type (category/item) arg3 is the action (delete/update)
+        window.location.href = `/credentials/${arg3}_${arg2}_${arg1}`;
+      }
+    </script>
+  </body>
 </html>

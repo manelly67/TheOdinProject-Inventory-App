@@ -1,57 +1,48 @@
 <ul>
-    <% if(categories.length>0 && categoryIndex !== 'update') { %>
-        <% categories.forEach( (e)=>{ %>
-            <li class="levelLink">
-                <a href="/all/<%= e.id %>">
-                    <%= `${e.category.toUpperCase()} `%>
-                </a>
-                <br>
-                <div class="smallButtonsSet">
-                    <div>
-                        <button 
-                        onclick="{
+  <% if(categories.length>0 && categoryIndex !== 'update') { %> 
+    <%  categories.forEach( (e)=>{ %>
+  <li class="levelLink">
+    <a href="/all/<%= e.id %>"> <%= `${e.category.toUpperCase()} `%> </a>
+    <br />
+    <div class="smallButtonsSet">
+      <div>
+        <button
+          onclick="{
                             update('<%= e.id %>');
-                            }" >UPDATE  </button>
-                    </div>   
-                    <div>
-                        <form action="/credentials/delete_category_<%= e.id %>" method="GET" > 
-                            <button type="submit" 
-                              onclick="{
+                            }"
+        >
+          UPDATE
+        </button>
+      </div>
+      <div>
+        <form action="/credentials/delete_category_<%= e.id %>" method="GET">
+          <button
+            type="submit"
+            onclick="{
                                     return confirm('Are you sure about delete this?');   
-                                }">DELETE</button>
-                          </form> 
-                        
-                    </div>             
-                    
-                </div>
-            </li>
-           
-            <% }) %>
-                <% } else {%>
-                    <%- include('./update.ejs') %>
-                
-                <% } %>
+                                }"
+          >
+            DELETE
+          </button>
+        </form>
+      </div>
+    </div>
+  </li>
 
-                    <li class="levelLink">
-                        <a href="/all">
-                            ALL CATEGORIES
-                        </a>
-                    </li>
+  <% }) %> <% } else {%> <%- include('./update.ejs') %> <% } %>
 
-                    <% if ( categoryIndex === "add") {%>
-                        <li id="newCategoryDiv" class="levelLink">
-                            <form action="/newcategory" method="POST"> 
-                                 <label for="namecategory">NEW CATEGORY: </label>
-                                 <input type="text" id="namecategory" name="newcategory" />
-                                 <%- include('./errors.ejs') %>
-                                 <button class="submitCategory">Submit</button>
-                             </form>
-                         </li>
-                    <% } else { %>
-                        <%= null %>
-                        <% }%>
-                    
-                           
+  <li class="levelLink">
+    <a href="/all"> ALL CATEGORIES </a>
+  </li>
 
-    </ul>
-    
+  <% if ( categoryIndex === "add") {%>
+  <li id="newCategoryDiv" class="levelLink">
+    <form action="/newcategory" method="POST">
+      <label for="namecategory">NEW CATEGORY: </label>
+      <input type="text" id="namecategory" name="newcategory" />
+      <%- include('./errors.ejs') %>
+      <button class="submitCategory">Submit</button>
+    </form>
+  </li>
+  <% } else { %> <%= null %> <% }%>
+</ul>

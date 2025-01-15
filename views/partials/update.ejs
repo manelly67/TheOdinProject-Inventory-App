@@ -1,42 +1,49 @@
-<% categories.forEach((e)=>{  %>
-    <% if ( Number(e.id) === Number(idToUpdate) ) { %>
-        
-        <li id="updateCategoryDiv" class="levelLink">
-            <form action="<%= formAction %>" id="formUpdateCategory" method="POST"> 
-                 <label for="updateCategory">UPDATE: </label>
-                 <input type="text" id="updateCategory" name="updatecategory" value="<%= categoryValue %>"/>
-                 <%- include('./errors.ejs') %>
-                 <button class="submitCategory">Submit</button>
-             </form>
-         </li>
+<% categories.forEach((e)=>{ %> 
+  <% if ( Number(e.id) === Number(idToUpdate) ) { %>
 
-    <% }else{ %>
+<li id="updateCategoryDiv" class="levelLink">
+  <form action="<%= formAction %>" id="formUpdateCategory" method="POST">
+    <label for="updateCategory">UPDATE: </label>
+    <input
+      type="text"
+      id="updateCategory"
+      name="updatecategory"
+      value="<%= categoryValue %>"
+    />
+    <%- include('./errors.ejs') %>
+    <button class="submitCategory">Submit</button>
+  </form>
+</li>
 
-        <li class="levelLink">
-            <a href="/all/<%= e.id %>">
-            
-                <%= `${e.category.toUpperCase()} `%>
-            
-            </a>
-            <br>
-            <div class="smallButtonsSet">
-                <div>
-                    <button 
-                    onclick="{
+<% }else{ %>
+
+<li class="levelLink">
+  <a href="/all/<%= e.id %>"> <%= `${e.category.toUpperCase()} `%> </a>
+  <br />
+  <div class="smallButtonsSet">
+    <div>
+      <button
+        onclick="{
                         update('<%= e.id %>');
-                        }" >UPDATE  </button>
-                </div>   
-                <div>
-                    <form action="/credentials/delete_category_<%= e.id %>" method="GET" > 
-                        <button type="submit" 
-                          onclick="{
+                        }"
+      >
+        UPDATE
+      </button>
+    </div>
+    <div>
+      <form action="/credentials/delete_category_<%= e.id %>" method="GET">
+        <button
+          type="submit"
+          onclick="{
                                 return confirm('Are you sure about delete this?');   
-                            }">DELETE</button>
-                      </form> 
-                </div>             
-                
-            </div>
-        </li>
-        
-    <% } %>
-<% })  %>
+                            }"
+        >
+          DELETE
+        </button>
+      </form>
+    </div>
+  </div>
+</li>
+
+<% } %> 
+<% }) %>

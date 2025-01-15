@@ -1,21 +1,19 @@
 const { appObject } = require('../appObject');
-const db = require("../db/queries");
-const { body, validationResult } = require("express-validator");
+const db = require('../db/queries');
+const { body } = require('express-validator');
 
 const myObject = {};
 require('dotenv').config({ processEnv: myObject });
 
 const adminPassword = process.env.ADMINPASSWORD || myObject.ADMINPASSWORD;
 
-// validate safe password
-const safePassword = [
-  body("password").trim().escape(),
-];
+// validate safe password with escape()
+const safePassword = [body('password').trim().escape()];
 
 async function checkCredentGet(req, res) {
   const inf = req.params.id;
   const categories = await db.getAllCategories();
-  res.render("index", {
+  res.render('index', {
     appObject: appObject,
     title: appObject.title[0],
     categories: categories,
@@ -26,11 +24,9 @@ async function checkCredentGet(req, res) {
   });
 }
 
-
 const checkCredentPost = [
   safePassword,
   async (req, res) => {
-    const errors = validationResult(req);
     const { password } = req.body;
     const inf = req.params.id;
     const [action, type, id] = inf.split('_');
@@ -58,10 +54,11 @@ const checkCredentPost = [
                 }
             }
         }
-
+        break;
       case false:
+        {
         const categories = await db.getAllCategories();
-        res.render("index", {
+        res.render('index', {
           appObject: appObject,
           title: appObject.title[0],
           categories: categories,
@@ -69,10 +66,10 @@ const checkCredentPost = [
           needCredential: false,
           deleteCategMessage: 'Unauthorized User',
         });
+      }
     }
-
-  }];
-
+  },
+];
 
 module.exports = {
   checkCredentGet,

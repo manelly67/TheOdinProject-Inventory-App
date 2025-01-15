@@ -1,12 +1,13 @@
 #! /usr/bin/env node
 
-const { Client } = require("pg");
+const { Client } = require('pg');
 
-
-const myObject = {}
+const myObject = {};
 require('dotenv').config({ processEnv: myObject });
 
-const connectionString = process.env.DATABASE_URL || `postgresql://${myObject.ROLE_NAME}:${myObject.PASSWORD}@${myObject.HOST}:5432/${myObject.DATABASE}`;
+const connectionString =
+  process.env.DATABASE_URL ||
+  `postgresql://${myObject.ROLE_NAME}:${myObject.PASSWORD}@${myObject.HOST}:5432/${myObject.DATABASE}`;
 
 // hacer el populate de la base de datos local
 const SQL = `
@@ -26,13 +27,13 @@ VALUES
   ('hat','step by step images',1,2),
   ('fox','step by step images',2,2),
   ('frog','step by step images',2,1),
-   ('swam','step by step images',2,1),
-   ('roses','online video',3,3),
-   ('tulip','step by step images',3,2),
-    ('carnation','online video',3,4),
-   ('house','step by step images',4,2),
+  ('swam','step by step images',2,1),
+  ('roses','online video',3,3),
+  ('tulip','step by step images',3,2),
+  ('carnation','online video',3,4),
+  ('house','step by step images',4,2),
   ('pyramid','online video',4,4),
-   ('umbrellas','online video',1,4),
+  ('umbrellas','online video',1,4),
   ('crane bird','online video',2,4);
 
 CREATE TABLE IF NOT EXISTS categories (
@@ -61,14 +62,14 @@ VALUES
 `;
 
 async function main() {
-  console.log("seeding...");
+  console.log('seeding...');
   const client = new Client({
     connectionString: connectionString,
   });
   await client.connect();
   await client.query(SQL);
   await client.end();
-  console.log("done");
+  console.log('done');
 }
 
 main();
