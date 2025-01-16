@@ -6,10 +6,10 @@ const myObject = {};
 require('dotenv').config({ processEnv: myObject });
 
 const connectionString =
-  process.env.DATABASE_URL ||
+  myObject.DATABASE_URL ||
   `postgresql://${myObject.ROLE_NAME}:${myObject.PASSWORD}@${myObject.HOST}:5432/${myObject.DATABASE}`;
 
-// hacer el populate de la base de datos local
+// hacer el populate de la base de datos local o en produccion va a depender del string de conexion
 const SQL = `
 CREATE TABLE IF NOT EXISTS origami_courses (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
